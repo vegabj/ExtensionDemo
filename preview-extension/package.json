@@ -1,0 +1,127 @@
+{
+  "name": "preview-extension",
+  "displayName": "preview-extension",
+  "description": "automatically refactor naming",
+  "publisher": "Vegard B",
+  "license": "UNLICENSED",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.84.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "preview",
+          "title": "PreviewExtension",
+          "icon": "src/icons/flame.svg"
+        }
+      ]
+    },
+    "views": {
+      "preview": [
+        {
+          "type": "webview",
+          "id": "preview.view.settings",
+          "name": "Settings"
+        },
+        {
+          "type": "webview",
+          "id": "preview.view.promptLlama",
+          "name": "Prompt llama2"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "preview.simple.message",
+        "key": "ctrl+'",
+        "mac": "cmd+'",
+        "when": "editorTextFocus"
+      }
+    ],
+    "commands": [
+      {
+        "command": "preview.simple.message",
+        "title": "Preview: Simple Message"
+      },
+      {
+        "command": "preview.simple.selected",
+        "title": "Preview: Simple Selected Message"
+      },
+      {
+        "command": "preview.simple.timer",
+        "title": "Preview: Simple Timer"
+      },
+      {
+        "command": "preview.simple.quickpick",
+        "title": "Preview: Edit Settings"
+      },
+      {
+        "command": "preview.refactor.autorename",
+        "title": "Preview: Refactor - AutoRename"
+      },
+      {
+        "command": "preview.sdxl.prompt",
+        "title": "Preview: Prompt Stable Diffusion XL"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "preview.refactor.autorename"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "preview.simple.timer"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "PreviewExtension",
+      "properties": {
+        "preview.llama.url": {
+          "type": "string",
+          "default": "http://localhost:5500",
+          "description": "Backend url for llama2, SDXL etc"
+        },
+        "preview.llama.maxTokens": {
+          "type": "integer",
+          "default": 200,
+          "description": "Max tokens for llama2 model"
+        },
+        "preview.llama.temp": {
+          "type": "number",
+          "default": 0.2,
+          "description": "temperature for llama2 model"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "yarn run compile && yarn run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.84.0",
+    "@types/mocha": "^10.0.3",
+    "@types/node": "18.x",
+    "@typescript-eslint/eslint-plugin": "^6.9.0",
+    "@typescript-eslint/parser": "^6.9.0",
+    "eslint": "^8.52.0",
+    "glob": "^10.3.10",
+    "mocha": "^10.2.0",
+    "typescript": "^5.2.2",
+    "@vscode/test-electron": "^2.3.6"
+  }
+}
