@@ -4,7 +4,6 @@
 # Python
 **/__pycache__
 **/api/generated_images/*
-api/sdxl.ipynb
 
 # JS
 **/node_modules/**
